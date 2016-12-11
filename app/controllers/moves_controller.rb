@@ -3,12 +3,8 @@ class MovesController < ApplicationController
   respond_to :html
 
   def create
-    @move = @game.moves.new(move_params)
-    if @move.save
-      redirect_to @game, notice: 'Move successfully created.'
-    else
-      render 'games/show'
-    end
+    @move = @game.drop(move_params[:column], move_params[:value])
+    respond_with @move, location: -> { game_path(@game) }
   end
 
   private
@@ -18,6 +14,6 @@ class MovesController < ApplicationController
   end
 
   def move_params
-    params.require(:move).permit(:row, :column, :value)
+    params.require(:move).permit(:column, :value)
   end
 end

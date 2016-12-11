@@ -8,8 +8,16 @@ class Game < ActiveRecord::Base
     board.draw? || board.winner?
   end
 
+  def drop(column, disc)
+    moves.create(row: next_available_row(column), column: column, value: disc)
+  end
+
   def board
     @board ||= initialize_board
+  end
+
+  def next_available_row(column)
+    (moves.where(column: column).maximum(:row) || -1) + 1
   end
 
   private
