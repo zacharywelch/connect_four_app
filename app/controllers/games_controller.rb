@@ -9,6 +9,7 @@ class GamesController < ApplicationController
   end
 
   def show
+    @move = @game.moves.new(value: 'x')
     respond_with(@game)
   end
 
@@ -37,11 +38,12 @@ class GamesController < ApplicationController
   end
 
   private
-    def set_game
-      @game = Game.find(params[:id])
-    end
 
-    def game_params
-      params.require(:game).permit(:player_one, :player_two)
-    end
+  def set_game
+    @game = Game.find(params[:id])
+  end
+
+  def game_params
+    params.require(:game).permit(:player_one, :player_two)
+  end
 end

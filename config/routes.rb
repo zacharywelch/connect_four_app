@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
   root 'games#index'
-  resources :games
+  resources :games do
+    resources :moves
+  end
 end
