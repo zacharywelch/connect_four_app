@@ -4,3 +4,13 @@
 body { 
   padding-top: 60px;
 }
+
+.disc {
+  display: inline-block;
+  border: 4px solid #404040;
+  border-radius: 50px;
+  height: 50px;
+  width: 50px;
+}
+
+.bg-danger { background: #d9534f; }
