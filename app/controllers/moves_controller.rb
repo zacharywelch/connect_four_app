@@ -4,8 +4,11 @@ class MovesController < ApplicationController
 
   def create
     @move = @game.moves.new(move_params)
-    @move.save
-    respond_with @move, location: -> { game_path(@game) }
+    if @move.save
+      redirect_to @game, notice: 'Move successfully created.'
+    else
+      render 'games/show'
+    end
   end
 
   private

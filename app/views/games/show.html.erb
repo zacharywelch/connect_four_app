@@ -10,8 +10,10 @@
   <%= @game.player_two %>
 </p>
 
-<%= render 'board' %>
-<%= render 'moves/form' %>
+<%= render 'games/board' %>
+<%= render 'moves/form' unless @game.over? %>
+
+<%= content_tag :h3, "Game over!" if @game.over? %>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
