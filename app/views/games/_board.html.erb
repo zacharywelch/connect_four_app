@@ -1,0 +1,11 @@
+<table class='table table-bordered text-center'>
+  <% 5.downto(0) do |row| %>
+    <tr>
+      <% 7.times do |column| %>
+        <td>
+          <%= cell_for(@game, row, column) %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>

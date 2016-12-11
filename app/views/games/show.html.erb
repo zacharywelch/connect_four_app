@@ -10,5 +10,7 @@
   <%= @game.player_two %>
 </p>
 
+<%= render 'board' %>
+
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
