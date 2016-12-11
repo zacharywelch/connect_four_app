@@ -11,9 +11,11 @@
 </p>
 
 <%= render 'games/board' %>
-<%= render 'moves/form' unless @game.over? %>
 
-<%= content_tag :h3, "Game over!" if @game.over? %>
+<%= content_tag :h3, "#{@game.turn} won!" if @game.over? %>
+<%= content_tag :h3, "Your move #{@game.turn}" unless @game.over? %>
+
+<%= render 'moves/form' unless @game.over? %>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

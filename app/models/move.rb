@@ -11,6 +11,8 @@ class Move < ActiveRecord::Base
                      uniqueness: { scope: [:game, :row] }
   validate :next_available_row, if: :row?, on: :create
 
+  after_create { game.next_turn }
+
   private
 
   def next_available_row
