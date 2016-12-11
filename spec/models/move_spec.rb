@@ -15,4 +15,6 @@ describe Move do
   it { is_expected.to validate_presence_of :game }
   it { is_expected.to validate_inclusion_of(:row).in_range(0..5) }
   it { is_expected.to validate_inclusion_of(:column).in_range(0..6) }
+  it { is_expected.to validate_uniqueness_of(:row).scoped_to(:game_id, :column) }
+  it { is_expected.to validate_uniqueness_of(:column).scoped_to(:game_id, :row) }
 end

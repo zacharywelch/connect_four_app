@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161211014456) do
+ActiveRecord::Schema.define(version: 20161211021553) do
 
   create_table "games", force: :cascade do |t|
     t.string   "player_one"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 20161211014456) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "moves", ["game_id", "row", "column"], name: "index_moves_on_game_id_and_row_and_column", unique: true
   add_index "moves", ["game_id"], name: "index_moves_on_game_id"
 
 end
