@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :game do
-    player_one 'Bowman'
-    player_two 'Hal'
+    blue_player
+    red_player
   end
 end

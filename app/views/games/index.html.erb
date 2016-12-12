@@ -5,8 +5,8 @@
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>Player one</th>
-      <th>Player two</th>
+      <th>Blue player</th>
+      <th>Red player</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -14,10 +14,9 @@
   <tbody>
     <% @games.each do |game| %>
       <tr>
-        <td><%= game.player_one %></td>
-        <td><%= game.player_two %></td>
+        <td><%= game.blue_player.name %></td>
+        <td><%= game.red_player.name %></td>
         <td><%= link_to 'Show', game %></td>
-        <td><%= link_to 'Edit', edit_game_path(game) %></td>
         <td><%= link_to 'Destroy', game, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -26,4 +25,4 @@
 
 <br>
 
-<%= link_to 'New Game', new_game_path, class: 'btn btn-primary' %>
+<%= button_to 'New Game', games_path, class: 'btn btn-primary' %>

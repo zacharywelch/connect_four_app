@@ -9,7 +9,7 @@ class GamesController < ApplicationController
   end
 
   def show
-    value = @game.turn == @game.player_one ? 'x' : 'o'
+    value = @game.turn == @game.blue_player ? 'x' : 'o'
     @move = @game.moves.build(value: value)
     respond_with(@game)
   end
@@ -23,7 +23,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(game_params)
+    @game = Game.new(blue_player: Human.first, red_player: Human.second)
     @game.save
     respond_with(@game)
   end

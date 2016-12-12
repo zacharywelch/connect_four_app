@@ -6,7 +6,7 @@ module GamesHelper
     elsif game.over?
       content_tag :div, nil, class: 'disc'
     else
-      value = @game.turn == @game.player_one ? 'x' : 'o'
+      value = @game.turn == @game.blue_player ? 'x' : 'o'
       link_to '', 
               game_moves_path(@game, move: { column: column, value: value }), 
               method: :post,

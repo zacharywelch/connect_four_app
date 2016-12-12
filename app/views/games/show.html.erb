@@ -1,19 +1,19 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Player one:</strong>
-  <%= @game.player_one %>
+  <strong>Blue player:</strong>
+  <%= @game.blue_player.name %>
 </p>
 
 <p>
-  <strong>Player two:</strong>
-  <%= @game.player_two %>
+  <strong>Red player:</strong>
+  <%= @game.red_player.name %>
 </p>
 
 <%= render 'games/board' %>
 
-<%= content_tag :h3, "#{@game.turn} won!" if @game.over? %>
-<%= content_tag :h3, "Your move #{@game.turn}" unless @game.over? %>
+<%= content_tag :h3, "#{@game.turn.name} won!" if @game.over? %>
+<%= content_tag :h3, "Your move #{@game.turn.name}" unless @game.over? %>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>

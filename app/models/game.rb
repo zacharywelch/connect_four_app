@@ -1,10 +1,13 @@
 class Game < ActiveRecord::Base
+  belongs_to :blue_player, class_name: 'Player'
+  belongs_to :red_player, class_name: 'Player'
+  belongs_to :turn, class_name: 'Player'
   has_many :moves, dependent: :destroy
 
-  validates :player_one, presence: true
-  validates :player_two, presence: true
+  validates :blue_player, presence: true
+  validates :red_player, presence: true
 
-  before_create { self.turn = player_one }
+  before_create { self.turn = blue_player }
 
   def over?
     board.draw? || board.winner?
@@ -36,6 +39,6 @@ class Game < ActiveRecord::Base
   end
 
   def toggle_player
-    update_attributes(turn: turn == player_one ? player_two : player_one)
+    update_attributes(turn: turn == blue_player ? red_player : blue_player)
   end
 end
