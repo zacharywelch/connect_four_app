@@ -9,3 +9,6 @@
     </tr>
   <% end %>
 </table>
+
+<%= content_tag :h3, "#{@game.turn.name} won!" if @game.over? %>
+<%= content_tag :h3, "Your move #{@game.turn.name}" unless @game.over? %>

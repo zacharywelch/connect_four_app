@@ -10,6 +10,7 @@ module GamesHelper
       link_to '', 
               game_moves_path(@game, move: { column: column, value: value }), 
               method: :post,
+              remote: true,
               class: 'disc'
     end
   end

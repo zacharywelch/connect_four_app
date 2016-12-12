@@ -10,10 +10,9 @@
   <%= @game.red_player.name %>
 </p>
 
-<%= render 'games/board' %>
-
-<%= content_tag :h3, "#{@game.turn.name} won!" if @game.over? %>
-<%= content_tag :h3, "Your move #{@game.turn.name}" unless @game.over? %>
+<div id='board'>
+  <%= render 'games/board' %>
+</div>
 
 <%= link_to 'Edit', edit_game_path(@game) %> |
 <%= link_to 'Back', games_path %>
