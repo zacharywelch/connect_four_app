@@ -30,6 +30,10 @@ class Game < ActiveRecord::Base
     (moves.where(column: column).maximum(:row) || -1) + 1
   end
 
+  def move_at(row, column)
+    moves.find { |move| move.row == row && move.column == column }
+  end
+
   private
 
   def initialize_board

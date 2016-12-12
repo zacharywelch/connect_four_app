@@ -3,7 +3,7 @@
     <tr>
       <% 7.times do |column| %>
         <td>
-          <%= cell_for(@game, row, column) %>
+          <%= move_for(game: @game, row: row, column: column) %>
         </td>
       <% end %>
     </tr>

@@ -1,0 +1,10 @@
+<% if move.available? %>
+  <%= link_to '',
+              game_moves_path(move.game, 
+                              move: { column: move.column, value: move.value }),
+              method: :post,
+              remote: true,
+              class: 'move' %>
+<% else %>
+  <%= content_tag :div, nil, class: "move #{move.color}" %>
+<% end %>
