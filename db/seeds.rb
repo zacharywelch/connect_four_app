@@ -1,3 +1,5 @@
-Human.create(name: 'Zac')
-Human.create(name: 'Leo')
-Novice.create(name: 'Bob')
+Human.create(name: 'Human')
+Novice.create(name: 'Novice computer')
+Standard.create(name: 'Standard computer')
+Intermediate.create(name: 'Intermediate computer')
+Advanced.create(name: 'Advanced computer')

@@ -1,6 +1,4 @@
 <%= bootstrap_form_for(@game) do |f| %>
-  <%= f.text_field :blue_player %>
-  <%= f.text_field :red_player %>
-
+  <%= f.collection_radio_buttons :red_player_id, Computer.all, :id, :name %>
   <%= f.primary %>
 <% end %>

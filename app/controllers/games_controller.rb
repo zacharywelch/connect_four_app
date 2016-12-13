@@ -21,7 +21,8 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(blue_player: Human.first, red_player: Standard.first)
+    @game = Game.new(blue_player: Human.first, 
+                     red_player: Computer.find(game_params[:red_player_id]))
     @game.save
     respond_with(@game)
   end
@@ -43,6 +44,6 @@ class GamesController < ApplicationController
   end
 
   def game_params
-    params.require(:game).permit(:player_one, :player_two)
+    params.require(:game).permit(:red_player_id)
   end
 end
