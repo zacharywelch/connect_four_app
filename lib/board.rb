@@ -1,6 +1,6 @@
 class Board
   attr_reader :rows, :columns, :spaces
-  BLANK = ' '    
+  BLANK = ' '
   
   def initialize(lines = nil)
     @rows, @columns = 6, 7
@@ -28,14 +28,14 @@ class Board
   end
 
   def winner
-    winners.first
+    vertical_winner || horizontal_winner || diagonal_winner
   end
 
   def winner?
-    winning_row? || winning_column? || winning_diagonal?
+    winner.present?
   end
 
-  def to_s
+  def draw
     puts "\n"
     spaces.reverse.each do |row|
       print "|"
@@ -44,8 +44,6 @@ class Board
     end
     puts " 1 2 3 4 5 6 7 "
   end
-
-  alias :draw :to_s
 
   def next_available_space(column)
     spaces.each_with_index do |space, row|
@@ -69,24 +67,26 @@ class Board
       end
       scores
     end
-  end  
+  end
 
   private
 
-  def winning?(lines)
-    lines.any? { |line| line.join.match(/(\w)\1{3}/) }
+  def horizontal_winner
+    ConnectFourMatcher.new(spaces).winner
   end
 
-  def winning_row?
-    winning? spaces
+  def vertical_winner
+    ConnectFourMatcher.new(spaces.transpose).winner
   end
 
-  def winning_column?
-    winning? spaces.transpose
+  def diagonal_winner
+    ConnectFourMatcher.new(diagonals).winner
   end
 
-  def winning_diagonal?
-    winning? diagonals
+  def valid_moves
+    spaces.transpose.each_with_index.map do |line, column| 
+      column if line.join.match(/(\s)/)
+    end.compact
   end
 
   # based on http://stackoverflow.com/questions/2506621/ruby-getting-the-diagonal-elements-in-a-2d-array
@@ -99,17 +99,5 @@ class Board
       pad -= 1
     end
     left.transpose.map(&:compact) + right.transpose.map(&:compact)
-  end
-
-  def winners
-    [spaces, spaces.transpose, diagonals].map do |lines|
-      lines.map { |line| line.join.match(/(\w)\1{3}/) }.compact
-    end.flatten.map { |win| win.to_s[0] }
-  end
-
-  def valid_moves
-    spaces.transpose.each_with_index.map do |line, column| 
-      column if line.join.match(/(\s)/)
-    end.compact
   end
 end
