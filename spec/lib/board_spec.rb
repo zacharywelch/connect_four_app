@@ -18,11 +18,11 @@ describe Board do
     it { is_expected.to be_a Board }
 
     it 'has 7 columns' do
-      expect(board.columns).to be 7
+      expect(board.columns.length).to be 7
     end
 
     it 'has 6 rows' do
-      expect(board.rows).to be 6
+      expect(board.rows.length).to be 6
     end
 
     it 'is empty by default' do

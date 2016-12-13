@@ -4,9 +4,8 @@ class Computer < Player
   end
 
   def move(game)
-    scores = game.board.move_scores_for('o', difficulty)
-    best_move = scores.sort_by { |column, score| score }.last[0]
-    game.drop(best_move, 'o')
+    column = Strategies::BruteForce.new(game.board, difficulty).best_move('o')
+    game.drop(column, 'o')
   end
 end
 require_dependency 'dumb'

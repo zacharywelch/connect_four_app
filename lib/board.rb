@@ -1,10 +1,9 @@
 class Board
-  attr_reader :rows, :columns, :spaces
+  attr_reader :spaces
   BLANK = ' '
   
   def initialize(lines = nil)
-    @rows, @columns = 6, 7
-    @spaces = Array.new(rows) { Array.new(columns, BLANK) }
+    @spaces = Array.new(6) { Array.new(7, BLANK) }
     unless lines.nil?
       6.times do |row|
         7.times do |column|
@@ -51,42 +50,28 @@ class Board
     end
   end
 
-  def move_scores_for(disc, depth)
-    valid_moves.inject({}) do |scores, column|
-      simulation = Board.new(spaces)
-      simulation.drop(column, disc)
-      if simulation.winner?
-        scores[column] = simulation.winner == disc ? 1 : -1
-      elsif depth > 1
-        opponent = (disc == 'o' ? 'x' : 'o')
-        next_move_scores = simulation.move_scores_for(opponent, depth - 1).values
-        average = next_move_scores.reduce(:+).to_f / next_move_scores.length
-        scores[column] = -1 * average
-      else
-        scores[column] = 0
-      end
-      scores
-    end
+  alias :rows :spaces
+  
+  def columns
+    rows.transpose
+  end
+
+  def copy
+    self.class.new(spaces)
   end
 
   private
 
   def horizontal_winner
-    ConnectFourMatcher.new(spaces).winner
+    ConnectFourMatcher.new(rows).winner
   end
 
   def vertical_winner
-    ConnectFourMatcher.new(spaces.transpose).winner
+    ConnectFourMatcher.new(columns).winner
   end
 
   def diagonal_winner
     ConnectFourMatcher.new(diagonals).winner
-  end
-
-  def valid_moves
-    spaces.transpose.each_with_index.map do |line, column| 
-      column if line.join.match(/(\s)/)
-    end.compact
   end
 
   # based on http://stackoverflow.com/questions/2506621/ruby-getting-the-diagonal-elements-in-a-2d-array
@@ -99,5 +84,5 @@ class Board
       pad -= 1
     end
     left.transpose.map(&:compact) + right.transpose.map(&:compact)
-  end
+  end  
 end
