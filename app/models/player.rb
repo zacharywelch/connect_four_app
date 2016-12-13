@@ -1,5 +1,5 @@
 class Player < ActiveRecord::Base
   def move(game)
-    fail NotImplementedError
+    raise NotImplementedError
   end
 end

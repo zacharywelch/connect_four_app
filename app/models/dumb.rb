@@ -1,4 +1,4 @@
-class Novice < Computer
+class Dumb < Computer
   def move(game)
     move = Move.new
     until move.persisted?
