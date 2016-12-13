@@ -1,6 +1,6 @@
 FactoryGirl.define do
-  factory :player, aliases: [:blue_player, :red_player] do
+  factory :human, aliases: [:player, :blue_player, :red_player] do
     name "MyString"
-    type ""
+    type :human
   end
 end

@@ -2,9 +2,16 @@ class Board
   attr_reader :rows, :columns, :spaces
   BLANK = ' '    
   
-  def initialize(default = BLANK)
+  def initialize(lines = nil)
     @rows, @columns = 6, 7
-    @spaces = Array.new(rows) { Array.new(columns, default) }
+    @spaces = Array.new(rows) { Array.new(columns, BLANK) }
+    unless lines.nil?
+      6.times do |row|
+        7.times do |column|
+          @spaces[row][column] = lines[row][column]
+        end
+      end
+    end
   end
 
   def move(row, column, disc)
@@ -18,6 +25,10 @@ class Board
 
   def draw?
     spaces.flatten.none? { |space| space == BLANK }
+  end
+
+  def winner
+    winners.first
   end
 
   def winner?
@@ -41,6 +52,24 @@ class Board
       break row, column if space[column] == BLANK
     end
   end
+
+  def move_scores_for(disc, depth)
+    valid_moves.inject({}) do |scores, column|
+      simulation = Board.new(spaces)
+      simulation.drop(column, disc)
+      if simulation.winner?
+        scores[column] = simulation.winner == disc ? 1 : -1
+      elsif depth > 1
+        opponent = (disc == 'o' ? 'x' : 'o')
+        next_move_scores = simulation.move_scores_for(opponent, depth - 1).values
+        average = next_move_scores.reduce(:+).to_f / next_move_scores.length
+        scores[column] = -1 * average
+      else
+        scores[column] = 0
+      end
+      scores
+    end
+  end  
 
   private
 
@@ -70,5 +99,17 @@ class Board
       pad -= 1
     end
     left.transpose.map(&:compact) + right.transpose.map(&:compact)
+  end
+
+  def winners
+    [spaces, spaces.transpose, diagonals].map do |lines|
+      lines.map { |line| line.join.match(/(\w)\1{3}/) }.compact
+    end.flatten.map { |win| win.to_s[0] }
+  end
+
+  def valid_moves
+    spaces.transpose.each_with_index.map do |line, column| 
+      column if line.join.match(/(\s)/)
+    end.compact
   end
 end

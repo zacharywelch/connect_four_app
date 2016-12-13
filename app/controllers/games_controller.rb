@@ -21,7 +21,7 @@ class GamesController < ApplicationController
   end
 
   def create
-    @game = Game.new(blue_player: Human.first, red_player: Human.second)
+    @game = Game.new(blue_player: Human.first, red_player: Standard.first)
     @game.save
     respond_with(@game)
   end

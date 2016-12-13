@@ -19,7 +19,10 @@ class Game < ActiveRecord::Base
 
   def next_turn
     initialize_board
-    toggle_player unless over?
+    unless over?
+      toggle_player
+      turn.move(self)
+    end
   end
 
   def board
